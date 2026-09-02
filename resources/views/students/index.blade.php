@@ -150,12 +150,13 @@
                 <thead class="table-dark">
 
                     <tr>
-                        <th>ID</th>
+                        <th class="d-none">ID</th>
                         <th>Profile</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Student ID</th>
                         <th>Education</th>
+                        <th>Country</th>
                         <th>Status</th>
                         <th width="250"> Actions </th>
                     </tr>
@@ -169,7 +170,7 @@
 
                         <tr>
                             <!-- ID -->
-                            <td> {{ $student->id }} </td>
+                            <td class="d-none"> {{ $student->id }} </td>
 
                             <!-- Profile Image -->
                             <td>
@@ -220,6 +221,10 @@
                             <!-- Course -->
                             <td ondblclick="editEducation(this)" data-student-id="{{ $student->id }}" style="cursor: pointer" title="Double-click to edit">
     <span class="education-text">{{ $student->education }}</span>
+</td>
+
+<td>
+    {{ $student->country }}
 </td>
                             <!-- Status -->
                             <td>

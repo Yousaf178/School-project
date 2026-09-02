@@ -41,3 +41,9 @@ Route::put(
     [StudentController::class, 'updateEducation']
 )->name('students.updateEducation');
 // });
+
+
+// download button create by yousaf
+Route::get('/students/{student}/download', [StudentController::class, 'download'])
+    ->name('students.download');
+    // end

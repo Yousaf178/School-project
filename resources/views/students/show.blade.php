@@ -12,7 +12,11 @@
         <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning">
             Edit Student
         </a>
-
+<!-- yousaf create a button for pdf download data by yousaf -->
+ <a href="{{ route('students.download', $student->id) }}" class="btn btn-danger">
+    Download PDF
+</a>
+ <!-- end -->
         <a href="{{ route('students.index') }}" class="btn btn-secondary">
             Back
         </a>
@@ -214,8 +218,52 @@
                 </div>
 
             </div>
+<!-- yousaf put new module for pdf show -->
+<!-- Student PDF Document -->
+<div class="card shadow-sm mt-4">
 
-        </div>
+    <div class="card-header">
+        <h5 class="mb-0">Student Document</h5>
+    </div>
+
+    <div class="card-body">
+
+        @if($student->student_pdf)
+
+            <p class="mb-3">
+                <strong>Uploaded PDF:</strong>
+                {{ basename($student->student_pdf) }}
+            </p>
+
+            <a
+                href="{{ asset('storage/' . $student->student_pdf) }}"
+                target="_blank"
+                class="btn btn-primary"
+            >
+                View PDF
+            </a>
+
+            <a
+                href="{{ asset('storage/' . $student->student_pdf) }}"
+                download
+                class="btn btn-success"
+            >
+                Download Document
+            </a>
+
+        @else
+
+            <p class="text-muted mb-0">
+                No PDF document uploaded.
+            </p>
+
+        @endif
+
+    </div>
+
+</div>
+<!-- end -->
+</div>
 
     </div>
 

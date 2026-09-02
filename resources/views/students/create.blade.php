@@ -213,6 +213,33 @@
                         </div>
 
                     </div>
+<!-- yousaf create pdf file  -->
+
+<div class="col-md-6 mb-3">
+    <label class="form-label">
+        Student Document (PDF)
+    </label>
+
+    <input
+        type="file"
+        name="student_pdf"
+        class="form-control @error('student_pdf') is-invalid @enderror"
+        accept=".pdf,application/pdf"
+    >
+
+    @error('student_pdf')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+    @enderror
+
+    <small class="text-danger">
+        PDF only. Maximum 5MB.
+    </small>
+</div>
+<!-- end -->
+
+
                 <div class="row">
                     <h5 class="border-bottom pb-1 mb-3 mt-6"> Profile </h5>
 
@@ -241,7 +268,6 @@
 
                     </div>
 </div>
-
                     <div class="d-flex justify-content-between">
 
                         <button type="submit" class="btn btn-primary" > Save Student </button>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StudentController extends Controller
 {
@@ -112,28 +113,49 @@ class StudentController extends Controller
 
         'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
+        // PDF
+        'student_pdf' => 'nullable|file|mimes:pdf|max:5120',
+
         'status' => 'required|boolean',
     ]);
 
-    $data = $request->except('profile_image');
-// dd($request->toSql(), $request->getBindings());
+    // Remove uploaded files from normal form data
+    $data = $request->except([
+        'profile_image',
+        'student_pdf'
+    ]);
+
+    // =========================
+    // Upload Profile Image
+    // =========================
+
     if ($request->hasFile('profile_image')) {
 
         $imagePath = $request->file('profile_image')
-                             ->store('students', 'public');
+            ->store('students', 'public');
 
         $data['profile_image'] = $imagePath;
     }
 
-// yousaf insert query debuging
-//     DB::listen(function ($query) {
-//     dd([
-//         'sql' => $query->sql,
-//         'bindings' => $query->bindings,
-//         'time' => $query->time,
-//     ]);
-// });
-// end
+    // =========================
+    // Upload Student PDF
+    // =========================
+
+    if ($request->hasFile('student_pdf')) {
+
+        $pdfPath = $request->file('student_pdf')
+    ->storeAs(
+        'student-documents',
+        $request->file('student_pdf')->getClientOriginalName(),
+        'public'
+    );
+
+        $data['student_pdf'] = $pdfPath;
+    }
+
+    // =========================
+    // Create Student
+    // =========================
 
     Student::create($data);
 
@@ -141,7 +163,6 @@ class StudentController extends Controller
         ->route('students.index')
         ->with('success', 'Student created successfully.');
 }
-
     /**
      * Display the specified resource.
      */
@@ -185,6 +206,7 @@ class StudentController extends Controller
         'admission_date' => 'nullable|date',
 
         'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'student_pdf' => 'nullable|file|mimes:pdf|max:5120',
 
         'status' => 'required|boolean',
     ]);
@@ -198,6 +220,14 @@ class StudentController extends Controller
 
         $data['profile_image'] = $imagePath;
     }
+
+    if ($request->hasFile('student_pdf')) {
+
+    $pdfPath = $request->file('student_pdf')
+        ->store('student-documents', 'public');
+
+    $data['student_pdf'] = $pdfPath;
+}
 
     $student->update($data);
 
@@ -259,4 +289,18 @@ public function updateEducation(Request $request, Student $student)
     ]);
 }
 // end by yousaf
+
+// create a code for download pdf button by yousaf
+public function download($id)
+{
+    $student = Student::findOrFail($id);
+
+    $pdf = Pdf::loadView('students.pdf', compact('student'));
+
+    return $pdf->download(
+        $student->first_name . '_' . $student->last_name . '_profile.pdf'
+    );
+}
+// end
+
 }
