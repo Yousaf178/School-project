@@ -154,6 +154,8 @@
                         <th>Profile</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Phone No</th>
+                        <th>Age:</th>
                         <th>Student ID</th>
                         <th>Education</th>
                         <th>Country</th>
@@ -173,23 +175,27 @@
                             <td class="d-none"> {{ $student->id }} </td>
 
                             <!-- Profile Image -->
-                            <td>
-                                @if($student->profile_image)
+                            <!-- Profile Image -->
+<!-- Profile Image -->
+<td>
+    @if($student->profile_image)
 
-                                    <img src="{{ asset('storage/' . $student->profile_image) }}"
-                                        width="60"
-                                        height="60"
-                                        class="rounded-circle"
-                                        style="object-fit: cover;"
-                                        alt="Profile" >
+        <img
+            src="{{ asset('storage/' . $student->profile_image) }}"
+            width="60"
+            height="60"
+            class="rounded-circle"
+            style="object-fit: cover; cursor: pointer;"
+            alt="Profile"
+            onclick="showImage('{{ asset('storage/' . $student->profile_image) }}')"
+        >
 
-                                @else
+    @else
 
-                                    <span class="text-muted"> No Image </span>
+        <span class="text-muted">No Image</span>
 
-                                @endif
-
-                            </td>
+    @endif
+</td>
 
                             <!-- Name -->
                             <td>
@@ -211,7 +217,11 @@
 
                             <!-- Email -->
                             <td>{{ $student->email }}</td>
-
+                            <td>{{ $student->phone }}</td>
+                            <td>{{ $student->date_of_birth
+            ? \Carbon\Carbon::parse($student->date_of_birth)->age . ' years'
+            : 'N/A'
+        }}</td>
                             <!-- Student ID double click to edit by yousaf -->
                             <td ondblclick="editStudentId(this)" data-student-id="{{ $student->id }}"   style="cursor: pointer;"  title="Double-click to edit" >
     <span class="student-id-text">{{ $student->student_id }}</span>
@@ -220,7 +230,7 @@
 
                             <!-- Course -->
                             <td ondblclick="editEducation(this)" data-student-id="{{ $student->id }}" style="cursor: pointer" title="Double-click to edit">
-    <span class="education-text">{{ $student->education }}</span>
+    <span class="education-text">{{ $student->education ?: 'N/A' }}</span>
 </td>
 
 <td>
@@ -601,3 +611,65 @@ function saveEducation(cell, newValue, oldValue) {
 }
 </script>
 <!-- End by yousaf -->
+
+<!-- Image Popup -->
+<div id="imagePopup"
+    style="
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        justify-content: center;
+        align-items: center;
+    "
+    onclick="closeImage()">
+
+    <div style="position: relative;" onclick="event.stopPropagation()">
+
+        <button
+            type="button"
+            onclick="closeImage()"
+            style="
+                position: absolute;
+                right: -15px;
+                top: -15px;
+                width: 35px;
+                height: 35px;
+                border: none;
+                border-radius: 50%;
+                background: white;
+                font-size: 20px;
+                cursor: pointer;
+            ">
+            &times;
+        </button>
+
+        <img
+            id="popupImage"
+            src=""
+            alt="Profile Image"
+            style="
+                max-width: 90vw;
+                max-height: 85vh;
+                object-fit: contain;
+                border-radius: 10px;
+            ">
+    </div>
+
+</div>
+
+<script>
+function showImage(imageUrl) {
+    document.getElementById('popupImage').src = imageUrl;
+    document.getElementById('imagePopup').style.display = 'flex';
+}
+
+function closeImage() {
+    document.getElementById('imagePopup').style.display = 'none';
+    document.getElementById('popupImage').src = '';
+}
+</script>
