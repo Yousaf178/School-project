@@ -224,7 +224,7 @@ class StudentController extends Controller
         ->with('success', 'Student deleted successfully.');
 }
 
-// the below code is for double click to edit StudentId field by yousaf
+// the below fuction is for double click to edit StudentId field by yousaf
 public function updateStudentId(Request $request, Student $student)
 {
     $request->validate([
@@ -241,7 +241,7 @@ public function updateStudentId(Request $request, Student $student)
         'message' => 'Student ID updated successfully.'
     ]);
 }
-
+// the below function is also used for double click by Yousaf
 public function updateEducation(Request $request, Student $student)
 {
     $request->validate([
