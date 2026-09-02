@@ -22,6 +22,7 @@ class Student extends Model
         'education',
         'admission_date',
         'profile_image',
+        'student_pdf',
         'status',
     ];
 
