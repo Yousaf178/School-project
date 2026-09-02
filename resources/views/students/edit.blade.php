@@ -15,7 +15,7 @@
 
 <div class="card shadow-sm">
 
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-center bg-info align-items-center">
 
         <h4 class="mb-0">Edit Student Information</h4>
 
@@ -265,8 +265,8 @@
 
             <h5 class="border-bottom pb-2 mb-3 mt-3"> Profile Image </h5>
 
-
-            <div class="mb-3">
+ <div class="row">
+            <div class="col-md-6 mb-3">
 
                 @if($student->profile_image)
 
@@ -295,7 +295,7 @@
 
             <!-- Status -->
 
-            <div class="mb-4">
+            <div class="col-md-6 mb-3">
 
                 <label class="form-label"> Status </label>
 
@@ -314,10 +314,10 @@
                 </select>
 
             </div>
-
+</div>
 
             <!-- Buttons -->
-
+<div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-primary" >
                 Update Student
             </button>
@@ -325,7 +325,7 @@
             <a href="{{ route('students.show', $student->id) }}" class="btn btn-secondary" >
                 Cancel
             </a>
-
+</div>
         </form>
 
     </div>

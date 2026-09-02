@@ -36,4 +36,8 @@ Route::post('/logout', [LoginController::class, 'logout'])
         [StudentController::class, 'updateStudentId']
     )->name('students.updateStudentId');
 
+Route::put(
+    '/students/{student}/education',
+    [StudentController::class, 'updateEducation']
+)->name('students.updateEducation');
 // });

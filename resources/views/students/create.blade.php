@@ -123,19 +123,19 @@
 
            <select name="gender" class="form-select @error('gender') is-invalid @enderror" >
 
-    <option value=""> Select Gender </option>
+            <option value=""> Select Gender </option>
 
-    <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }} >  Male </option>
+            <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }} >  Male </option>
 
-    <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }} > Female </option>
+            <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }} > Female </option>
 
-    <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}> Other </option>
+            <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}> Other </option>
 
           </select>
 
-@error('gender')
-    <div class="invalid-feedback"> {{ $message }} </div>
-@enderror
+                @error('gender')
+                    <div class="invalid-feedback"> {{ $message }} </div>
+                @enderror
 
                         </div>
 
