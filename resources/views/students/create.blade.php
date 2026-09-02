@@ -10,14 +10,14 @@
 
         <div class="card shadow-sm">
 
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-center bg-info align-items-center">
                 <h4 class="mb-0">Add New Student</h4>
             </div>
 
             <div class="card-body">
 
                 @if ($errors->any())
-
+    
                     <div class="alert alert-danger">
 
                         <strong>Please fix the following errors:</strong>
@@ -44,18 +44,18 @@
 
                     <div class="row">
 
-                        <div class="mb-3">
+                        <div class="col-md-4 mb-3">
 
-    <label class="form-label"> First Name * </label>
+                            <label class="form-label"> First Name <small class="text-danger">*</small> </label>
 
-    <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror"
-    value="{{ old('first_name') }}">
+                            <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror"
+                            value="{{ old('first_name') }}">
 
-@error('first_name')
-    <div class="invalid-feedback"> {{ $message }}</div>
-@enderror
+                            @error('first_name')
+                                <div class="invalid-feedback"> {{ $message }}</div>
+                            @enderror
 
-</div>
+                        </div>
 
                         <div class="col-md-4 mb-3">
 
@@ -68,14 +68,14 @@
 
                         <div class="col-md-4 mb-3">
 
-                            <label class="form-label"> Last Name * </label>
+                            <label class="form-label"> Last Name <small class="text-danger">*</small> </label>
 
                             <input type="text" name="last_name"
-    class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name') }}" >
+                                class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name') }}" >
 
-@error('last_name')
-    <div class="invalid-feedback"> {{ $message }} </div>
-@enderror
+                            @error('last_name')
+                                <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
                         </div>
 
                     </div>
@@ -84,7 +84,7 @@
 
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">  Email * </label>
+                            <label class="form-label">  Email <small class="text-danger">*</small> </label>
 
                             <input type="email"  name="email"
     class="form-control @error('email') is-invalid @enderror"  value="{{ old('email') }}" >
@@ -175,7 +175,7 @@
 
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label"> Student ID * </label>
+                            <label class="form-label"> Student ID <small class="text-danger">*</small> </label>
 
                             <input type="text" name="student_id" class="form-control @error('student_id') is-invalid @enderror" value="{{ old('student_id') }}">
 
@@ -213,24 +213,24 @@
                         </div>
 
                     </div>
+                <div class="row">
+                    <h5 class="border-bottom pb-1 mb-3 mt-6"> Profile </h5>
 
-                    <h5 class="border-bottom pb-2 mb-3 mt-3"> Profile </h5>
-
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">  Profile Image </label>
 
                         <input type="file" name="profile_image" class="form-control @error('profile_image') is-invalid @enderror" accept="image/*" >
 
-@error('profile_image')
-    <div class="invalid-feedback"> {{ $message }} </div>
-@enderror
+                        @error('profile_image')
+                            <div class="invalid-feedback"> {{ $message }} </div>
+                        @enderror
 
-                        <small class="text-muted"> JPG, JPEG, PNG or WEBP. Maximum 2MB. </small>
+                        <small class="text-danger"> JPG, JPEG, PNG or WEBP. Maximum 2MB. </small>
 
-                    </div>
+                        </div>
 
-                    <div class="mb-4">
+                        <div class="col-md-6 mb-3">
 
                         <label class="form-label"> Status </label>
 
@@ -240,8 +240,9 @@
                         </select>
 
                     </div>
+</div>
 
-                    <div>
+                    <div class="d-flex justify-content-between">
 
                         <button type="submit" class="btn btn-primary" > Save Student </button>
 
