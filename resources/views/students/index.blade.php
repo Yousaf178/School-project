@@ -6,10 +6,27 @@
 
 <!-- Page Header -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- Page Header -->
 <div class="d-flex justify-content-between align-items-center mb-4">
+
     <h1>Students</h1>
-    <a href="{{ route('students.create') }}" class="btn btn-primary"> + Add Student</a>
+
+    <div>
+        <!-- Add Teacher Button -->
+        <a href="{{ route('teachers.create') }}" class="btn btn-success me-2">
+            + Add Teacher
+        </a>
+
+        <!-- Add Student Button -->
+        <a href="{{ route('students.create') }}" class="btn btn-primary">
+            + Add Student
+        </a>
+    </div>
+
 </div>
+
+
+
 
 
 <!-- Search & Filters -->
