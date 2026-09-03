@@ -169,11 +169,11 @@
                                 </td>
 
                                 <td>
-{{-- Teachers --}}
-    <a href="{{ route('subjects.teachers', $subject) }}"
-       class="btn btn-sm btn-primary">
-        Teachers
-    </a>
+    {{-- Teachers --}}
+        <a href="{{ route('subjects.teachers', $subject) }}"
+        class="btn btn-sm btn-primary">
+            Teachers
+        </a>
 
                                     <a href="{{ route('subjects.show', $subject) }}"
                                        class="btn btn-sm btn-info">
