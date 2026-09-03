@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Teacher;
 
 class Subject extends Model
 {
@@ -14,6 +15,6 @@ class Subject extends Model
 
     public function teachers()
     {
-        return $this->hasMany(Teacher::class);
+        return $this->hasMany(Teacher::class, 'subject_id');
     }
 }

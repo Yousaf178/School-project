@@ -129,23 +129,18 @@
 
 
                     {{-- Subject --}}
-                    <div class="col-md-6">
+                   <div class="col-md-6">
+    <label class="form-label">Subject</label>
 
-    <label class="form-label">
-        Subject
-    </label>
+    <select name="subject_id" class="form-select" required>
 
-    <select name="subject" class="form-select" required>
-
-        <option value="">
-            Select Subject
-        </option>
+        <option value="">Select Subject</option>
 
         @foreach($subjects as $subject)
 
             <option
-                value="{{ $subject->name }}"
-                {{ old('subject') == $subject->name ? 'selected' : '' }}
+                value="{{ $subject->id }}"
+                {{ old('subject_id') == $subject->id ? 'selected' : '' }}
             >
                 {{ $subject->name }}
             </option>
@@ -154,12 +149,11 @@
 
     </select>
 
-    @error('subject')
+    @error('subject_id')
         <small class="text-danger">
             {{ $message }}
         </small>
     @enderror
-
 </div>
 
 

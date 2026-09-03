@@ -181,8 +181,9 @@
 
                                 <td>{{ $teacher->phone ?? 'N/A' }}</td>
 
-                                <td>{{ $teacher->subject ?? 'N/A' }}</td>
-
+                                <td>
+    {{ $teacher->subject->name ?? 'N/A' }}
+</td>
                                 <td>{{ $teacher->country ?? 'N/A' }}</td>
 
                                 <td>

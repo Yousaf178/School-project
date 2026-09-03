@@ -10,30 +10,29 @@ class TeacherController extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function index(Request $request)
+ public function index(Request $request)
 {
-    $query = Teacher::query();
+    $query = Teacher::with('subject');
 
     // Search
     if ($request->filled('search')) {
-
         $search = $request->search;
 
         $query->where(function ($q) use ($search) {
-
             $q->where('first_name', 'like', "%{$search}%")
               ->orWhere('last_name', 'like', "%{$search}%")
               ->orWhere('email', 'like', "%{$search}%")
               ->orWhere('phone', 'like', "%{$search}%")
-              ->orWhere('subject', 'like', "%{$search}%")
-              ->orWhere('country', 'like', "%{$search}%");
-
+              ->orWhere('country', 'like', "%{$search}%")
+              ->orWhereHas('subject', function ($subjectQuery) use ($search) {
+                  $subjectQuery->where('name', 'like', "%{$search}%");
+              });
         });
     }
 
     // Subject filter
-    if ($request->filled('subject')) {
-        $query->where('subject', $request->subject);
+    if ($request->filled('subject_id')) {
+        $query->where('subject_id', $request->subject_id);
     }
 
     // Status filter
@@ -41,18 +40,15 @@ class TeacherController extends Controller
         $query->where('status', $request->status);
     }
 
-    // Pagination
     $teachers = $query
         ->latest()
         ->paginate(10)
         ->withQueryString();
 
-    // Get subjects for dropdown
-    $subjects = Teacher::whereNotNull('subject')
-        ->where('subject', '!=', '')
-        ->distinct()
-        ->orderBy('subject')
-        ->pluck('subject');
+    // Get subjects from subjects table
+    $subjects = Subject::where('status', 1)
+        ->orderBy('name')
+        ->get();
 
     return view('teachers.index', compact(
         'teachers',
@@ -84,7 +80,7 @@ class TeacherController extends Controller
         'email'         => 'required|email|unique:teachers,email',
         'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'phone'         => 'nullable|string|max:30',
-        'subject'       => 'nullable|string|max:255',
+        'subject_id' => 'required|exists:subjects,id',
         'country'       => 'nullable|string|max:255',
         'status'        => 'required|boolean',
     ]);
