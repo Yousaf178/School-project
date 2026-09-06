@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -7,16 +6,25 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\SchoolClassController;
+use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ClassSubjectController;
 
+// =========================
 // Logout
+// =========================
+
 Route::post('/logout', [LoginController::class, 'logout'])
     ->name('logout');
 
 
+// =========================
 // Students
+// =========================
+
 Route::resource('students', StudentController::class);
-// Subjects
-Route::resource('subjects', SubjectController::class);
+
 
 // Student ID double-click update
 Route::put(
@@ -24,9 +32,6 @@ Route::put(
     [StudentController::class, 'updateStudentId']
 )->name('students.updateStudentId');
 
-
-Route::get('/subjects/{subject}/teachers', [SubjectController::class, 'teachers'])
-    ->name('subjects.teachers');
 
 // Student Education double-click update
 Route::put(
@@ -42,5 +47,74 @@ Route::get(
 )->name('students.download');
 
 
+// =========================
+// Subjects
+// =========================
+
+Route::resource('subjects', SubjectController::class);
+
+Route::get(
+    '/subjects/{subject}/teachers',
+    [SubjectController::class, 'teachers']
+)->name('subjects.teachers');
+
+
+// =========================
+// Classes
+// =========================
+
+Route::resource('classes', SchoolClassController::class);
+
+
+// =========================
+// Enrollments
+// =========================
+
+Route::resource('enrollments', EnrollmentController::class);
+
+
+// =========================
+// Attendance
+// =========================
+
+// Daily attendance page
+Route::get(
+    '/attendances/daily',
+    [AttendanceController::class, 'daily']
+)->name('attendances.daily');
+
+// Save daily attendance
+Route::post(
+    '/attendances/daily/save',
+    [AttendanceController::class, 'saveDaily']
+)->name('attendances.saveDaily');
+
+// Normal attendance CRUD
+Route::resource('attendances', AttendanceController::class);
+
+
+// =========================
 // Teachers
+// =========================
+
 Route::resource('teachers', TeacherController::class);
+
+Route::get(
+    '/class-subjects',
+    [ClassSubjectController::class, 'index']
+)->name('class-subjects.index');
+
+Route::get(
+    '/class-subjects/create',
+    [ClassSubjectController::class, 'create']
+)->name('class-subjects.create');
+
+Route::post(
+    '/class-subjects',
+    [ClassSubjectController::class, 'store']
+)->name('class-subjects.store');
+
+Route::delete(
+    '/class-subjects/{classSubject}',
+    [ClassSubjectController::class, 'destroy']
+)->name('class-subjects.destroy');

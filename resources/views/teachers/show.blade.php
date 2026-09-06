@@ -57,7 +57,7 @@
 
                 <div class="col-md-6">
                     <strong>Subject:</strong>
-                    <p>{{ $teacher->subject ?? 'N/A' }}</p>
+                    <p>{{ $teacher->subject->name ?? 'N/A' }}</p>
                 </div>
 
                 <div class="col-md-6">

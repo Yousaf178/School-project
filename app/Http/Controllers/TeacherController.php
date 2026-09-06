@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Models\Subject;
+use App\Models\SchoolClass;
 
 class TeacherController extends Controller
 {
@@ -59,13 +60,19 @@ class TeacherController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+   public function create()
 {
     $subjects = Subject::where('status', 1)
         ->orderBy('name')
         ->get();
 
-    return view('teachers.create', compact('subjects'));
+    $classes = SchoolClass::orderBy('name')
+        ->get();
+
+    return view('teachers.create', compact(
+        'subjects',
+        'classes'
+    ));
 }
 
     /**
@@ -116,9 +123,13 @@ class TeacherController extends Controller
         ->orderBy('name')
         ->get();
 
+    $classes = SchoolClass::orderBy('name')
+        ->get();
+
     return view('teachers.edit', compact(
         'teacher',
-        'subjects'
+        'subjects',
+        'classes'
     ));
 }
 

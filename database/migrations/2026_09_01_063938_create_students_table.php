@@ -40,7 +40,7 @@ return new class extends Migration
             // Profile Image
             $table->string('profile_image')->nullable();
     // yousaf create a column for pdf file
-    $table->string('student_pdf')->nullable();
+    // $table->string('student_pdf')->nullable();
     // end
             // Status
             $table->boolean('status')->default(true);
